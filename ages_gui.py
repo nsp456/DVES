@@ -8,7 +8,7 @@ def install(package):
 try:
     from PyQt5 import QtCore
     from PyQt5.QtCore import Qt
-    from PyQt5.QtWidgets import QMainWindow,QApplication,QGridLayout,QLineEdit,QPushButton,QVBoxLayout,QWidget,QStackedWidget,QLabel,QMessageBox
+    from PyQt5.QtWidgets import QMainWindow,QApplication,QGridLayout,QLineEdit,QPushButton,QVBoxLayout,QWidget,QStackedWidget,QLabel,QMessageBox,QDialog
    
   
     
@@ -229,9 +229,20 @@ class SetupConnection:
       print("\nClicked ",sub_exp)
       text=ages_scan.scan()
       flag=entry_check(text)
+     
+
       if(flag==0):
-          
-          vis_entry_log(vno,name,flat)
+          vform=QDialog(parent=self._view)
+          vform.setWindowTitle("Visitor Detials")
+          vform.setModal(True)
+          vform.v_name=QLineEdit(vform)
+          vform.v_name.setPlaceholderText("Visitor Name")
+          vform.flat=QLineEdit(vform)
+          vform.flat.setPlaceholderText("Flat Visiting")
+          vform.v_name.move(0,40)
+          vform.flat.move(0,100)
+          vform.show()
+          #vis_entry_log(self.vform.v_name,name,flat)
         
 
 class Window(QMainWindow):
