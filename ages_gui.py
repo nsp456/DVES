@@ -1,3 +1,5 @@
+import ages_scan,ages_data_processing
+from ages_data_processing import *
 import sys
 import os.path
 from os import path
@@ -219,12 +221,17 @@ class SetupConnection:
         self._view = view
         # Connect signals and slots
         for btnText, btn in self._view.buttons.items():
-            
-            btn.clicked.connect(partial(self.button_press, btnText))
+            if(btnText=="Entry Scan"):
+                btn.clicked.connect(partial(self.button_press_entry, btnText))
    
      
-    def button_press(self, sub_exp):
-      print("Clicked ",sub_exp)
+    def button_press_entry(self, sub_exp):
+      print("\nClicked ",sub_exp)
+      text=ages_scan.scan()
+      flag=entry_check(text)
+      if(flag==0):
+          
+          vis_entry_log(vno,name,flat)
         
 
 class Window(QMainWindow):
