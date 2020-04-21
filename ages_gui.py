@@ -223,11 +223,16 @@ class SetupConnection:
         for btnText, btn in self._view.buttons.items():
             if(btnText=="Entry Scan"):
                 btn.clicked.connect(partial(self.button_press_entry, btnText))
+
+     
    
      
     def button_press_entry(self, sub_exp):
       print("\nClicked ",sub_exp)
       text=ages_scan.scan()
+      if(text!=""):
+          message="Plate Number is : "+text
+          QMessageBox.about(self._view, "Scan Successfull",message)
       flag=entry_check(text)
      
 
@@ -239,8 +244,14 @@ class SetupConnection:
           vform.v_name.setPlaceholderText("Visitor Name")
           vform.flat=QLineEdit(vform)
           vform.flat.setPlaceholderText("Flat Visiting")
-          vform.v_name.move(0,40)
-          vform.flat.move(0,100)
+          vform.resize(500,400)
+          vform.v_name.move(100,40)
+          vform.v_name.resize(300,40)
+          vform.flat.move(100,100)
+          vform.flat.resize(300,40)
+          vform.submit=QPushButton("Submit",vform)
+          vform.submit.move(100,150)
+          vform.submit.clicked.connect(lambda : vform.close() if(vis_entry_log(text,vform.v_name.text(),vform.flat.text())==1) else False )
           vform.show()
           #vis_entry_log(self.vform.v_name,name,flat)
         
