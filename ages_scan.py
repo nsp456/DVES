@@ -1,13 +1,18 @@
 import pytesseract
-
-pytesseract.pytesseract.tesseract_cmd = r'C:\Users\kjsce_comp164\AppData\Local\Tesseract-OCR\tesseract.exe'
+import cv2 as cv
+from matplotlib import pyplot as plt
+import numpy as np
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 try:
     from PIL import Image
 except ImportError:
     import Image
 
 def scan():
-    result=pytesseract.image_to_string(Image.open('test.jpg'))
+    input_img = cv.imread('test.jpg',1)
+  
+    result=pytesseract.image_to_string(input_img)
+        
     text=""
     for i in result:
         if i not in ['?',' ','\n']:
@@ -17,13 +22,5 @@ def scan():
     
 
 
+#scan()
 
-
-
-"""
-    with open('abc.txt',mode ='a+') as file:      
-          for i in text:
-                file.write(i) 
-                #print(result)
-          file.write('\n')
-"""
