@@ -3,7 +3,7 @@ import pandas as pd
 from csv import writer 
 
 def entry_check(text):
-    resDb=pd.read_csv('Resident Database.csv')
+    resDb=pd.read_csv('resDB.csv')
     flag=0
     for i in resDb['Vehicle No.']:      
           if(i==text):
