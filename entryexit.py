@@ -5,9 +5,9 @@ import time
 global res_log
 global residential
 global vis_log
-residential=pd.read_csv('resDB.csv',names=['VehicleNo.','FlatNo.','Name','MobileNo.'])
-res_log=pd.read_csv('res_log.csv')
-vis_log=pd.read_csv('vis_log.csv')
+residential=pd.read_csv('C:\\Users\\Siddharth\\Desktop\\DBMS IA A\\resDB.csv',names=['VehicleNo.','FlatNo.','Name','MobileNo.'])
+res_log=pd.read_csv('C:\\Users\\Siddharth\\Desktop\\DBMS IA A\\res_log.csv')
+vis_log=pd.read_csv('C:\\Users\\Siddharth\\Desktop\\DBMS IA A\\vis_log.csv')
 
 def add_entry(number):
     flag=1
@@ -31,7 +31,7 @@ def add_entry(number):
         r.to_csv('vis_log.csv',index=False)
 
 
-def exit(number):
+def exit_(number):
     flag=1
     named_tuple = time.localtime() # get struct_time
             
@@ -52,24 +52,54 @@ def exit(number):
             flag=0
             break
     if flag==1:
-        for i in range(1,len(vis_log)):
+        for i in range(len(vis_log)):
             if vis_log.iloc[i][4]==number:
                 vis_log.iloc[i]=vis_log.iloc[i].replace(np.NaN,str(time_string))
                 vis_log.to_csv('vis_log.csv',index=False)
                 break
                 
 
-##add_entry('MH04SD3241')
-##data=list(res_log.iloc[1])
-##print(data)
-##data=pd.DataFrame({"VehicleNo.":["MH08DF3423"],"FlatNo.":["A223"],"Name":["Sid"],"MobileNo.":["23424232"]})
-##exit('MH06AY8034')
+##Detection of fraud
+
+# print(res_log)
+def fraudentry(number):
+    for i in range(len(res_log)):
+        if (res_log.iloc[i][3]==number and np.isnan(res_log.iloc[i][1])):
+            print(res_log.iloc[i][3])
+            return False
+    for i in range(len(vis_log)):
+        if vis_log.iloc[i][4]==number and np.isnan(vis_log.iloc[i][1]):
+            return False
+    return True
 
 
-add_entry('MH06AJ7781')
+##eg:
+##if vehicle is inside an a fraud vehicle comes and tries to enter then this function is used
+##the logic is to find the fraud is:
+##    the vehicle with same number will have entry time but not exit time because its np.NaN
+##to use this function
+##
+##////////////
+##if fraudentry(number):
+##    add_entry(number)
 
-print(res_log)
-##print(residential)
-##residential=residential.append(data)
-##residential.to_csv('res_log.csv',index=False)
-##print(residential)
+def fraudexit(number):
+    for i in range(len(res_log)):
+        if (res_log.iloc[i][3]==number and np.isnan(res_log.iloc[i][1])):
+            print(res_log.iloc[i][3])
+            return True
+    for i in range(len(vis_log)):
+        if vis_log.iloc[i][4]==number and np.isnan(vis_log.iloc[i][1]):
+            return True
+    return False
+    
+
+
+
+
+##how to use function to catch fraud:
+#     if fraudentry('MH12AD2324'):
+#         add_entry('MH12AD2324')
+
+#     if fraudexit('MH12AD2324'):
+#         exit('MH12AD2324')
