@@ -223,6 +223,8 @@ class SetupConnection:
         for btnText, btn in self._view.buttons.items():
             if(btnText=="Entry Scan"):
                 btn.clicked.connect(partial(self.button_press_entry, btnText))
+            if(btnText=="Exit Scan"):
+                btn.clicked.connect(partial(self.button_press_exit, btnText))
 
      
    
@@ -234,7 +236,8 @@ class SetupConnection:
           message="Plate Number is : "+text
           QMessageBox.about(self._view, "Scan Successfull",message)
       flag=entry_check(text)
-     
+      if(flag==-1):
+          QMessageBox.about(self._view, "Failure","Vehicle already Inside,Please Try Exit Scan")
 
       if(flag==0):
           vform=QDialog(parent=self._view)
@@ -254,6 +257,20 @@ class SetupConnection:
           vform.submit.clicked.connect(lambda : vform.close() if(vis_entry_log(text,vform.v_name.text(),vform.flat.text())==1) else False )
           vform.show()
           #vis_entry_log(self.vform.v_name,name,flat)
+
+    def button_press_exit(self,sub_exp):
+      print("\nClicked ",sub_exp)
+      text=ages_scan.scan()
+      if(text!=""):
+          message="Plate Number is : "+text
+          QMessageBox.about(self._view, "Scan Successfull",message)
+          flag=exit_log(text)
+          print(flag)
+          if(flag==-1):
+              QMessageBox.about(self._view, "Failure","Vehicle already Outside,Please Try Entry Scan")
+      else:
+          QMessageBox.about(self._view, "Scan Failed","Please Try again")
+        
         
 
 class Window(QMainWindow):
