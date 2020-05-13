@@ -24,7 +24,7 @@ def entry_check(text):
                     print("Vehicle Already Inside ,Please try Exit Scan")
                     return -1
             cw=writer(f)
-            cw.writerow([text,resDb['Flat No.'][row+1],now.strftime("%d/%m/%Y %H:%M:%S"),""])
+            cw.writerow([text,resDb['Flat No.'][row+1],datetime.now(),""])
         
     else:
         print("\nIs a Visitor")
@@ -43,7 +43,7 @@ def vis_entry_log(vno,name,flat):
       
       with open('vis_log.csv','a+',newline='') as f:
             cw=writer(f)
-            cw.writerow([vno,name,flat,now.strftime("%d/%m/%Y %H:%M:%S"),""])
+            cw.writerow([vno,name,flat,datetime.now(),""])
 
       return 1
 
@@ -67,7 +67,7 @@ def exit_log(text):
             resflag=1
             if(row[3]==""):
                 flag=1
-                row[3]=now.strftime("%d/%m/%Y %H:%M:%S")
+                row[3]=datetime.now()
             
         rlwriter.writerow(row)
     rl_in.close()
@@ -91,7 +91,7 @@ def exit_log(text):
             #print(row)
             if row[0]==text and row[4]=="":
                 flag=1
-                row[4]=now.strftime("%d/%m/%Y %H:%M:%S")
+                row[4]=datetime.now()
             vlwriter.writerow(row)
         vl_in.close()
         vl_out.close()
