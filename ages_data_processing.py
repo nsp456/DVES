@@ -9,22 +9,24 @@ now = datetime.now()
 def entry_check(text):
     resDb=pd.read_csv('resDB.csv')
     flag=0
-    row=0
+    row1=0
     for i in resDb['Vehicle No.']:
-          row+=1
+          row1+=1
           if(i==text):
                   flag=1
                   break
     if(flag==1):
         print("\nIs a Resident")
-        with open('res_log.csv','a+',newline='') as f:
+        with open('res_log.csv','r+',newline='') as f:
+            
             for row in f:
-                i=row.split(",")
-                if i[0]==text and i[3]=="\n":
+                j=row.split(",")
+                if j[0]==text and len(j[3])<3:
                     print("Vehicle Already Inside ,Please try Exit Scan")
                     return -1
             cw=writer(f)
-            cw.writerow([text,resDb['Flat No.'][row+1],datetime.now(),""])
+            
+            cw.writerow([text,resDb['Flat No.'][row1-1],datetime.now(),""])
         
     else:
         print("\nIs a Visitor")
@@ -108,7 +110,7 @@ def exit_log(text):
     return 1
             
     
-#entry_check("MH06AY8034")  
+#entry_check("MH06AJ8034")  
 #exit_log("A7M9590")
 #print("Success")
 #vis_entry_log("AM1234","Strange","B221")
