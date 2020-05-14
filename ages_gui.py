@@ -78,7 +78,7 @@ class MainWindow(PageWindow):
                     print("Logged In Successfully!")
                     self.goto("welcome")
                 else:
-                    QMessageBox.about(self,"Log In Failed","Wrong Credentials\nPlease Re-enter")
+                    QMessageBox.about(self,"Log In Failed","Incorrect Credentials\nPlease Re-enter")
                     self.pwd.setText("")
             elif button== "Reg":
                 
@@ -139,22 +139,11 @@ class RegisterUser(PageWindow):
                 QMessageBox.about(self,"Success","Registered Successfully")
                 self.goto("welcome")
                     
-               
-                    
-            
+                                    
         return handleButton
 
 
-      
-       
-        
-        
-        
-        
- 
-        
-
-
+    
 class WelcomeUser(PageWindow):
     def __init__(self):
         super().__init__()
@@ -237,7 +226,7 @@ class SetupConnection:
           QMessageBox.about(self._view, "Scan Successfull",message)
       flag=entry_check(text)
       if(flag==-1):
-          QMessageBox.about(self._view, "Failure","Vehicle already Inside,Please Try Exit Scan")
+          QMessageBox.about(self._view, "Failure","Vehicle already Inside. Please try Exit Scan")
 
       if(flag==0):
           vform=QDialog(parent=self._view)
@@ -266,7 +255,7 @@ class SetupConnection:
           QMessageBox.about(self._view, "Scan Successfull",message)
           flag=exit_log(text)
           if(flag==-1):
-              QMessageBox.about(self._view, "Failure","Vehicle already Outside,Please Try Entry Scan")
+              QMessageBox.about(self._view, "Failure","Vehicle not present in premises. Please Try Entry Scan")
       else:
           QMessageBox.about(self._view, "Scan Failed","Please Try again")
         
