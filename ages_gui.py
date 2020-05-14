@@ -265,7 +265,6 @@ class SetupConnection:
           message="Plate Number is : "+text
           QMessageBox.about(self._view, "Scan Successfull",message)
           flag=exit_log(text)
-          print(flag)
           if(flag==-1):
               QMessageBox.about(self._view, "Failure","Vehicle already Outside,Please Try Entry Scan")
       else:
