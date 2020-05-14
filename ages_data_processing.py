@@ -76,8 +76,8 @@ def exit_log(text):
     rl_out.close()
 
     if(resflag==1 and flag==0):
-        print("\nVehicle already outside,Please try Entry Scan")
-        return 0
+        print("\nVehicle not present in premises. Please try Entry Scan")
+        return -1
     
             
     if(resflag!=1):
@@ -98,7 +98,7 @@ def exit_log(text):
         vl_in.close()
         vl_out.close()
         if(flag==-1):
-            print("\nVehicle already outside,Please try Entry Scan")
+            print("\nVehicle not present in premises. Please try Entry Scan")
             return -1
 
     in_file=open("temp.csv","r")
