@@ -5,7 +5,7 @@ import csv
 from csv import *
 now = datetime.now()
 #from csv import writer 
-
+sensor_range=65
 def entry_check(text):
     resDb=pd.read_csv('resDB.csv')
     flag=0
@@ -26,7 +26,7 @@ def entry_check(text):
                     return -1
             cw=writer(f)
             
-            cw.writerow([text,resDb['Flat No.'][row1-1],datetime.now(),""])
+            cw.writerow([text,resDb['Flat No.'][row1-1],datetime.now().replace(microsecond=0),""])
         
     else:
         print("\nIs a Visitor")
@@ -45,7 +45,7 @@ def vis_entry_log(vno,name,flat):
       
       with open('vis_log.csv','a+',newline='') as f:
             cw=writer(f)
-            cw.writerow([vno,name,flat,datetime.now(),""])
+            cw.writerow([vno,name,flat,datetime.now().replace(microsecond=0),""])
 
       return 1
 
@@ -69,14 +69,14 @@ def exit_log(text):
             resflag=1
             if(row[3]==""):
                 flag=1
-                row[3]=datetime.now()
+                row[3]=datetime.now().replace(microsecond=0)
             
         rlwriter.writerow(row)
     rl_in.close()
     rl_out.close()
 
     if(resflag==1 and flag==0):
-        print("\nVehicle not present in premises. Please try Entry Scan")
+        print("\nVehicle already outside,Please try Entry Scan")
         return -1
     
             
@@ -93,12 +93,12 @@ def exit_log(text):
             #print(row)
             if row[0]==text and row[4]=="":
                 flag=1
-                row[4]=datetime.now()
+                row[4]=datetime.now().replace(microsecond=0)
             vlwriter.writerow(row)
         vl_in.close()
         vl_out.close()
         if(flag==-1):
-            print("\nVehicle not present in premises. Please try Entry Scan")
+            print("\nVehicle already outside,Please try Entry Scan")
             return -1
 
     in_file=open("temp.csv","r")
@@ -109,7 +109,45 @@ def exit_log(text):
         newwriter.writerow(row)
     return 1
             
-    
+def getRepData(log,date,start,end):
+    start=datetime.strptime(date+" "+start,'%Y-%m-%d %H:%M:%S')
+    end=datetime.strptime(date+" "+end,'%Y-%m-%d %H:%M:%S')
+    repList=[]
+    if(log=="Resident Log"):
+        file=open("res_log.csv","r")
+        idx=2
+    else:
+        file=open("vis_log.csv","r")
+        idx=3
+    k=0
+    for rows in file:
+        if not rows:
+            continue
+        if(k==0):
+            k=1
+            continue
+        row=rows.split(",")
+        print(row[idx]+" "+row[idx+1])
+        entrydt=datetime.strptime(row[idx],'%Y-%m-%d %H:%M:%S')
+        """
+        if(entrydt.date()==date):
+            if(entrydt.time()>=start and entrydt.time()<=end):
+                repList.append(row)
+                continue
+        """
+        if(entrydt>=start and entrydt<=end):
+            repList.append(row)
+            continue
+        if(len(row[idx+1])>2):
+            
+            exitdt=datetime.strptime(row[idx+1],'%Y-%m-%d %H:%M:%S ')
+            if(exitdt>=start and exitdt<=end):
+                repList.append(row)
+                continue
+            
+    return repList
+
+#print(getRepData("Resident Log","2020-05-20","00:00:00","05:00:00"))    
 #entry_check("MH06AJ8034")  
 #exit_log("A7M9590")
 #print("Success")
