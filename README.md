@@ -22,12 +22,15 @@ Run ages_gui.py
 
 # Generating Reports :
 Select the log you want the report of
+
 ![](Screenshots/ReportGen.png)
 
 Pick the date
+
 ![](Screenshots/ReportGen2.png)
 
 Pick the Start and End Time
+
 ![](Screenshots/ReportGen3.png)
 
 # Successfully Generated Reports:
