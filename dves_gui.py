@@ -1,5 +1,5 @@
-import ages_scan,ages_data_processing
-from ages_data_processing import *
+import dves_scan,dves_data_processing
+from dves_data_processing import *
 import sys
 import os.path
 from os import path
@@ -226,7 +226,7 @@ class WelcomeUser(PageWindow):
         
     def button_press_entry(self, sub_exp):
       print("\nClicked ",sub_exp)
-      text=ages_scan.scan()
+      text=dves_scan.scan()
       if(text!=""):
           message="Plate Number is : "+text
           QMessageBox.about(self, "Scan Successfull",message)
@@ -255,7 +255,7 @@ class WelcomeUser(PageWindow):
 
     def button_press_exit(self,sub_exp):
       print("\nClicked ",sub_exp)
-      text=ages_scan.scan()
+      text=dves_scan.scan()
       if(text!=""):
           message="Plate Number is : "+text
           QMessageBox.about(self, "Scan Successfull",message)
@@ -334,8 +334,8 @@ class ReportGen(PageWindow):
         else:
             table.setColumnCount(5)
             table.setItem(0,0,QTableWidgetItem("Vehicle No."))
-            table.setItem(0,1,QTableWidgetItem("Flat No."))
-            table.setItem(0,2,QTableWidgetItem("Visitor Name"))
+            table.setItem(0,1,QTableWidgetItem("Visitor Name"))
+            table.setItem(0,2,QTableWidgetItem("Flat No."))
             table.setItem(0,3,QTableWidgetItem("Entry Time"))
             table.setItem(0,4,QTableWidgetItem("Exit Time"))
             table.resize(800,400)
