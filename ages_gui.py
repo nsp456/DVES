@@ -40,7 +40,7 @@ class MainWindow(PageWindow):
         #self
         self.setWindowFlags(Qt.WindowStaysOnTopHint )
         # Set some main window's properties
-        self.setWindowTitle("AGES")
+        self.setWindowTitle("DVES")
         
         self.setFixedSize(400, 590)
         # Set the central widget and the general layout
