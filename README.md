@@ -1,3 +1,5 @@
+This program was done as a College Mini Project by js0753(Jainam Shah), nsp456(Nishant Pal) and sid507(Siddharth Mishra). 
+
 # DVES
 Digital Vehicle Entry System
 
