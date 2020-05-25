@@ -21,6 +21,6 @@ def scan():
     return text
     
 
-
+#uncomment below line to test this code before running main gui program.
 #scan()
 
