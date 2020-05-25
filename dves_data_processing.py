@@ -62,7 +62,6 @@ def exit_log(text):
     rlwriter=writer(rl_out)
     resflag=0
     flag=0
-    #print("Hey")
     for row in rlreader:
         #print(row)
         if row[0]==text:
