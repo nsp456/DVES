@@ -39,7 +39,7 @@ class MainWindow(PageWindow):
         super().__init__()
         #self
         self.setWindowFlags(Qt.WindowStaysOnTopHint )
-        # Set some main window's properties
+        # Set main window's properties
         self.setWindowTitle("DVES")
         
         self.setFixedSize(400, 590)
